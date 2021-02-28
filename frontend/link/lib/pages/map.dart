@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:link/components/listtile.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:geolocator/geolocator.dart';
 
 class MapPage extends StatefulWidget {
   @override
@@ -11,12 +13,10 @@ class MapPage extends StatefulWidget {
 }
 
 class MapPageState extends State<MapPage> {
-  Completer<GoogleMapController> _controller = Completer();
+  Set<Marker> _markers = HashSet<Marker>();
+  int _markerIdCounter = 1;
 
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(34.014797, -118.465112),
-    zoom: 13,
-  );
+  Completer<GoogleMapController> _controller = Completer();
 
   List<Map> friends = [
     {
@@ -40,19 +40,53 @@ class MapPageState extends State<MapPage> {
       "image_path": "assets/images/jacob.jpg"
     }
   ];
+  void _setMarkers(LatLng point) {
+    final String markerIdVal = 'marker_id_$_markerIdCounter';
+    _markerIdCounter++;
+
+    _markers.add(
+      Marker(
+        markerId: MarkerId(markerIdVal),
+        position: point,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       body: Stack(
         children: <Widget>[
-          GoogleMap(
-            mapType: MapType.normal,
-            initialCameraPosition: _kGooglePlex,
-            onMapCreated: (GoogleMapController controller) {
-              _controller.complete(controller);
-            },
-          ),
+          StreamBuilder(
+              stream: Geolocator.getPositionStream(
+                  desiredAccuracy: LocationAccuracy.best),
+              builder: (context, asyncSnapshot) {
+                if (asyncSnapshot.hasError) {
+                  return new Text("Error!");
+                } else if (asyncSnapshot.data == null) {
+                  return Text("no location");
+                } else {
+                  List data = asyncSnapshot.data
+                      .toString()
+                      .split(':')
+                      .join(',')
+                      .split(',');
+                  double lat = double.parse(data[1]);
+                  double long = double.parse(data[3]);
+                  _setMarkers(LatLng(lat, long));
+                  return GoogleMap(
+                    mapType: MapType.normal,
+                    initialCameraPosition: CameraPosition(
+                      target: LatLng(lat, long),
+                      zoom: 13,
+                    ),
+                    markers: _markers,
+                    onMapCreated: (GoogleMapController controller) {
+                      _controller.complete(controller);
+                    },
+                  );
+                }
+              }),
           SlidingUpPanel(
               maxHeight: MediaQuery.of(context).size.height * 0.65,
               borderRadius: BorderRadius.all(Radius.circular(25)),
