@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:link/components/place_service.dart';
+import 'package:link/pages/hangout.dart';
 
 class AddressSearch extends SearchDelegate<Suggestion> {
   AddressSearch(this.sessionToken) {
@@ -56,7 +57,15 @@ class AddressSearch extends SearchDelegate<Suggestion> {
                     title:
                         Text((snapshot.data[index] as Suggestion).description),
                     onTap: () {
+                      String data = (snapshot.data[index]).description;
                       close(context, snapshot.data[index] as Suggestion);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CreateHang(
+                                  address: data,
+                                )),
+                      );
                     },
                   ),
                   itemCount: snapshot.data.length,
