@@ -33,11 +33,23 @@ class MapPageState extends State<MapPage> {
               maxHeight: MediaQuery.of(context).size.height * 0.65,
               borderRadius: BorderRadius.all(Radius.circular(25)),
               panel: ListTile(
-                leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(25),
-                  child: Image.asset(
-                    'assets/images/henry.JPG',
-                  ),
+                leading: Stack(
+                  alignment: AlignmentDirectional.bottomEnd,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(25),
+                      child: Image.asset(
+                        'assets/images/henry.JPG',
+                      ),
+                    ),
+                    ClipRRect(
+                        borderRadius: BorderRadius.circular(25),
+                        child: Container(
+                          height: 17,
+                          width: 17,
+                          color: Colors.green[800],
+                        )),
+                  ],
                 ),
                 title: const Text("Henry Marks"),
                 subtitle: const Text('Online.'),
