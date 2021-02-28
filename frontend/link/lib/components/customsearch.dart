@@ -1,23 +1,5 @@
 import 'package:flutter/material.dart';
 
-class InheritedBlocs extends InheritedWidget {
-  InheritedBlocs({Key key, this.searchBloc, this.child})
-      : super(key: key, child: child);
-
-  final Widget child;
-  final searchBloc;
-
-  static InheritedBlocs of(BuildContext context) {
-    return (context.inheritFromWidgetOfExactType(InheritedBlocs)
-        as InheritedBlocs);
-  }
-
-  @override
-  bool updateShouldNotify(InheritedBlocs oldWidget) {
-    return true;
-  }
-}
-
 class CustomSearchDelegate extends SearchDelegate {
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -55,50 +37,7 @@ class CustomSearchDelegate extends SearchDelegate {
         ],
       );
     }
-
-    //Add the search term to the searchBloc.
-    //The Bloc will then handle the searching and add the results to the searchResults stream.
-    //This is the equivalent of submitting the search term to whatever search service you are using
-    InheritedBlocs.of(context).searchBloc.searchTerm.add(query);
-
-    return Column(
-      children: <Widget>[
-        //Build the results based on the searchResults stream in the searchBloc
-        StreamBuilder(
-          stream: InheritedBlocs.of(context).searchBloc.searchResults,
-          builder: (context, AsyncSnapshot snapshot) {
-            if (!snapshot.hasData) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Center(child: CircularProgressIndicator()),
-                ],
-              );
-            } else if (snapshot.data.length == 0) {
-              return Column(
-                children: <Widget>[
-                  Text(
-                    "No Results Found.",
-                  ),
-                ],
-              );
-            } else {
-              var results = snapshot.data;
-              return ListView.builder(
-                itemCount: results.length,
-                itemBuilder: (context, index) {
-                  var result = results[index];
-                  return ListTile(
-                    title: Text(result.title),
-                  );
-                },
-              );
-            }
-          },
-        ),
-      ],
-    );
+    return Column();
   }
 
   @override
