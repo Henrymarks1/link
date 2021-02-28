@@ -112,6 +112,62 @@ to your service.
   startFetchMyQuery();
 });
 
+app.post("/createfriend", (req, res) => {
+  /*
+This is an example snippet - you should consider tailoring it
+to your service.
+*/
+  const friendId = req.body.friendId;
+  const userId = req.body.userId;
+
+  async function fetchGraphQL(operationsDoc, operationName, variables) {
+    const result = await fetch("http://localhost:8080/v1/graphql", {
+      method: "POST",
+      body: JSON.stringify({
+        query: operationsDoc,
+        variables: variables,
+        operationName: operationName,
+      }),
+    });
+
+    return await result.json();
+  }
+
+  const operationsDoc = `
+    mutation MyMutation {
+      insert_friends(objects: {friend_id: "${friendId}", user_id: "${userId}"}) {
+        returning {
+          friend {
+            name
+            id
+          }
+          user {
+            name
+            id
+          }
+        }
+      }
+    }
+  `;
+
+  function executeMyMutation() {
+    return fetchGraphQL(operationsDoc, "MyMutation", {});
+  }
+
+  async function startExecuteMyMutation() {
+    const { errors, data } = await executeMyMutation();
+
+    if (errors) {
+      // handle those errors like a pro
+      console.error(errors);
+    }
+
+    // do something great with this precious data
+    res.send(data);
+  }
+
+  startExecuteMyMutation();
+});
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
