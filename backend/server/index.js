@@ -9,10 +9,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const port = 3000;
 
 app.post("/signup", (req, res) => {
+  console.log(req.body);
   bcrypt.hash(req.body.password, 10, function (err, hash) {
     const password = hash;
     const username = req.body.username;
     const name = req.body.name;
+
+    console.log(password);
+    console.log(username);
+    console.log(name);
 
     async function fetchGraphQL(operationsDoc, operationName, variables) {
       const result = await fetch("http://localhost:8080/v1/graphql", {
@@ -167,6 +172,57 @@ to your service.
   }
 
   startExecuteMyMutation();
+});
+
+app.post("/getusersbyname", (req, res) => {
+  /*
+This is an example snippet - you should consider tailoring it
+to your service.
+*/
+
+  const username = req.body.username;
+
+  async function fetchGraphQL(operationsDoc, operationName, variables) {
+    const result = await fetch("http://localhost:8080/v1/graphql", {
+      method: "POST",
+      body: JSON.stringify({
+        query: operationsDoc,
+        variables: variables,
+        operationName: operationName,
+      }),
+    });
+
+    return await result.json();
+  }
+
+  const operationsDoc = `
+    query MyQuery {
+      user(where: {username: {_eq: "${username}"}}) {
+        id
+        name
+        available
+      }
+    }
+  `;
+
+  function fetchMyQuery() {
+    return fetchGraphQL(operationsDoc, "MyQuery", {});
+  }
+
+  async function startFetchMyQuery() {
+    const { errors, data } = await fetchMyQuery();
+
+    if (errors) {
+      // handle those errors like a pro
+      console.error(errors);
+    }
+
+    // do something great with this precious data
+    console.log(data);
+    res.send(data);
+  }
+
+  startFetchMyQuery();
 });
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

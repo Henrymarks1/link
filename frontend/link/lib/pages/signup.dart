@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:link/components/postuser.dart';
 import 'package:link/components/themetextfeild.dart';
 
+class UserInfo {
+  String name, username, password;
+  UserInfo({this.name, this.username, this.password});
+}
+
+// ignore: must_be_immutable
 class Signup extends StatelessWidget {
+  UserInfo userInfo;
+  String password2;
   @override
   Widget build(BuildContext context) {
+    userInfo = new UserInfo();
+
     return Scaffold(
         body: CustomScrollView(
       slivers: [
@@ -21,25 +32,21 @@ class Signup extends StatelessWidget {
                 ),
               ),
               ThemedTextField(
-                text: 'First Name',
-                onChanged: (v) => null,
-              ),
-              ThemedTextField(
-                text: 'Last Name',
-                onChanged: (v) => null,
+                text: 'Full Name',
+                onChanged: (v) => userInfo.name = v,
               ),
               Divider(),
               ThemedTextField(
                 text: 'Username',
-                onChanged: (v) => null,
+                onChanged: (v) => userInfo.username = v,
               ),
               ThemedTextField(
                 text: 'Password',
-                onChanged: (v) => null,
+                onChanged: (v) => userInfo.password = v,
               ),
               ThemedTextField(
                 text: 'Confirm Password',
-                onChanged: (v) => null,
+                onChanged: (v) => password2 = v,
               ),
               Divider(),
               Padding(
@@ -48,7 +55,14 @@ class Signup extends StatelessWidget {
                     width: double.infinity,
                     child: FlatButton(
                       child: Text("sign up"),
-                      onPressed: null,
+                      onPressed: () async {
+                        print(userInfo.password);
+                        print(password2);
+                        if (userInfo.password == password2) {
+                          await postUser(userInfo);
+                          Navigator.pop(context);
+                        }
+                      },
                     )),
               ),
             ],
