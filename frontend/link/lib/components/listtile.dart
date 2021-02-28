@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'customsearch.dart';
+import 'package:uuid/uuid.dart';
 
 // ignore: must_be_immutable
 class UserTile extends StatelessWidget {
@@ -12,6 +13,8 @@ class UserTile extends StatelessWidget {
   UserTile({this.name, this.userPath, this.online, this.user});
   @override
   Widget build(BuildContext context) {
+    var uuid = Uuid();
+
     return ListTile(
       leading: InkWell(
         onTap: () {
@@ -65,7 +68,7 @@ class UserTile extends StatelessWidget {
         onPressed: () {
           showSearch(
             context: context,
-            delegate: CustomSearchDelegate(),
+            delegate: AddressSearch(uuid.v4()),
           );
         },
         icon: Icon(
