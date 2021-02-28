@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:link/pages/map.dart';
 
 class SignUp extends StatelessWidget {
   @override
@@ -46,8 +47,13 @@ class SignUp extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               child: RaisedButton(
-                onPressed: null,
-                child: Text('Sign In'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MapPage()),
+                  );
+                },
+                child: Text('Log In'),
               ),
             ),
           ),
@@ -79,9 +85,7 @@ class SignUp extends StatelessWidget {
                       MaterialStateProperty.all<Color>(Colors.grey[500]),
                 ),
                 child: Text("Create One"),
-                onPressed: () {
-                  print("test");
-                },
+                onPressed: () {},
               )
             ],
           ),
