@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'customsearch.dart';
+
 // ignore: must_be_immutable
 class UserTile extends StatelessWidget {
   String name;
@@ -59,9 +61,17 @@ class UserTile extends StatelessWidget {
       ),
       title: Text(name),
       subtitle: Text(online == true ? "Online" : "Offline"),
-      trailing: Icon(
-        Icons.keyboard_arrow_down,
-        size: 35,
+      trailing: IconButton(
+        onPressed: () {
+          showSearch(
+            context: context,
+            delegate: CustomSearchDelegate(),
+          );
+        },
+        icon: Icon(
+          Icons.search,
+          size: 35,
+        ),
       ),
     );
   }

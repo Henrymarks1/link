@@ -53,21 +53,6 @@ class MapPageState extends State<MapPage> {
               _controller.complete(controller);
             },
           ),
-          Padding(
-            padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.05,
-                left: 10,
-                right: 10),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Search here',
-                prefixIcon: Icon(Icons.search),
-                hintStyle: TextStyle(color: Colors.grey),
-                filled: true,
-                fillColor: Colors.white,
-              ),
-            ),
-          ),
           SlidingUpPanel(
               maxHeight: MediaQuery.of(context).size.height * 0.65,
               borderRadius: BorderRadius.all(Radius.circular(25)),
