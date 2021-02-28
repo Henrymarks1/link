@@ -12,37 +12,14 @@ class CreateHang extends StatefulWidget {
 }
 
 class _CreateHangState extends State<CreateHang> {
-  DateTime _setDate = DateTime.now();
-  String dateTime;
+  var time;
+  @override
+  void initState() {
+    super.initState();
+    time = DateTime.now().toString();
+    print(time);
 
-  Duration initialtimer = new Duration();
-  int selectitem = 1;
-
-  Widget datetimePicker() {
-    return CupertinoDatePicker(
-      initialDateTime: DateTime.now(),
-      onDateTimeChanged: (DateTime newdate) {
-        print(newdate);
-        setState(() {
-          dateTime = newdate.day.toString() +
-              '/' +
-              newdate.month.toString() +
-              '/' +
-              newdate.year.toString() +
-              ' ' +
-              newdate.hour.toString() +
-              ' hrs ' +
-              newdate.minute.toString() +
-              ' mins';
-        });
-      },
-      use24hFormat: true,
-      maximumDate: new DateTime(2021, 12, 30),
-      minimumYear: 2010,
-      maximumYear: 2021,
-      minuteInterval: 1,
-      mode: CupertinoDatePickerMode.dateAndTime,
-    );
+    ///whatever you want to run on page build
   }
 
   @override
@@ -128,7 +105,9 @@ class _CreateHangState extends State<CreateHang> {
                                           initialDateTime: DateTime.now(),
                                           onDateTimeChanged:
                                               (DateTime newdate) {
-                                            print(newdate);
+                                            setState(() {
+                                              time = newdate.toString();
+                                            });
                                           },
                                           use24hFormat: true,
                                           minimumYear: 2021,
@@ -155,7 +134,7 @@ class _CreateHangState extends State<CreateHang> {
                                   ),
                                   Center(
                                       child: Text(
-                                    widget.address,
+                                    time,
                                     style: TextStyle(fontSize: 20),
                                   ))
                                 ],
@@ -165,7 +144,10 @@ class _CreateHangState extends State<CreateHang> {
                     child: Container(),
                   ),
                   RaisedButton(
-                      onPressed: null,
+                      color: Colors.black,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       child: Padding(
                         padding: EdgeInsets.all(20),
                         child: Container(

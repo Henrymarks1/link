@@ -2,8 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:link/pages/map.dart';
+import 'package:link/pages/signup.dart';
 
-class SignUp extends StatelessWidget {
+class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +39,6 @@ class SignUp extends StatelessWidget {
               fillColor: Colors.white70,
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                borderSide: BorderSide(color: Colors.green, width: 2),
               ),
             ),
           ),
@@ -85,7 +85,10 @@ class SignUp extends StatelessWidget {
                       MaterialStateProperty.all<Color>(Colors.grey[500]),
                 ),
                 child: Text("Create One"),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Signup()));
+                },
               )
             ],
           ),
