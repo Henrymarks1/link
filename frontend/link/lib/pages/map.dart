@@ -99,7 +99,7 @@ class MapPageState extends State<MapPage> {
                 children: [
                   UserTile(
                     name: widget.data['data'][0]['name'],
-                    userPath: 'assets/images/henry.JPG',
+                    userPath: 'assets/images/null.png',
                     online: widget.data['data'][0]['available'],
                     user: true,
                   ),
