@@ -1,12 +1,22 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:link/components/signin.dart';
 import 'package:link/pages/map.dart';
 import 'package:link/pages/signup.dart';
 
+class SignInDB {
+  String name, username, password;
+  SignInDB({this.username, this.password});
+}
+
 class SignIn extends StatelessWidget {
+  SignInDB signin;
+
   @override
   Widget build(BuildContext context) {
+    signin = new SignInDB();
+
     return Scaffold(
         body: Center(
             child: Padding(
@@ -18,6 +28,7 @@ class SignIn extends StatelessWidget {
           ),
           Image.asset('assets/images/logo-placeholder.png'),
           TextField(
+            onChanged: (v) => signin.username = v,
             decoration: InputDecoration(
               hintText: 'Username',
               prefixIcon: Icon(Icons.account_box),
@@ -31,6 +42,7 @@ class SignIn extends StatelessWidget {
             ),
           ),
           TextField(
+            onChanged: (v) => signin.password = v,
             decoration: InputDecoration(
               hintText: 'Password',
               prefixIcon: Icon(Icons.lock),
@@ -47,11 +59,14 @@ class SignIn extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               child: RaisedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MapPage()),
-                  );
+                onPressed: () async {
+                  var data = await signIn(signin);
+                  if (data == true) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MapPage()),
+                    );
+                  }
                 },
                 child: Text('Log In'),
               ),
