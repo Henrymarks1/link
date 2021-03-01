@@ -7,7 +7,11 @@ import 'package:link/components/listtile.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:geolocator/geolocator.dart';
 
+// ignore: must_be_immutable
 class MapPage extends StatefulWidget {
+  var data;
+
+  MapPage({this.data});
   @override
   State<MapPage> createState() => MapPageState();
 }
@@ -54,6 +58,7 @@ class MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.data);
     return new Scaffold(
       body: Stack(
         children: <Widget>[
@@ -93,20 +98,24 @@ class MapPageState extends State<MapPage> {
               panel: Column(
                 children: [
                   UserTile(
-                    name: "Henry Marks",
+                    name: widget.data['data'][0]['name'],
                     userPath: 'assets/images/henry.JPG',
-                    online: true,
+                    online: widget.data['data'][0]['available'],
                     user: true,
                   ),
                   ListView.builder(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
-                      itemCount: friends.length,
+                      itemCount: widget.data['data'][0]['friends'].length,
                       itemBuilder: (context, index) {
+                        print(widget.data['data'][0]['friends'][index]['friend']
+                            ['name']);
                         return UserTile(
-                          name: friends[index]['name'],
-                          userPath: friends[index]['image_path'],
-                          online: friends[index]['available'],
+                          name: widget.data['data'][0]['friends'][index]
+                              ['friend']['name'],
+                          userPath: 'assets/images/null.png',
+                          online: widget.data['data'][0]['friends'][index]
+                              ['friend']['available'],
                         );
                       })
                 ],

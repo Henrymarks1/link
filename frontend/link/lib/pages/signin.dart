@@ -61,10 +61,13 @@ class SignIn extends StatelessWidget {
               child: RaisedButton(
                 onPressed: () async {
                   var data = await signIn(signin);
-                  if (data == true) {
+                  if (data['signin'] == true) {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => MapPage()),
+                      MaterialPageRoute(
+                          builder: (context) => MapPage(
+                                data: data,
+                              )),
                     );
                   }
                 },

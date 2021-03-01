@@ -85,11 +85,22 @@ to your service.
   }
 
   const operationsDoc = `
-    query MyQuery {
-      user(where: {username: {_eq: "${clientUsername}", _is_null: false}}) {
-        password
+  query MyQuery {
+    user(where: {username: {_eq: "${clientUsername}", _is_null: false}}) {
+      password
+      name
+      id
+      available
+      friends {
+        friend {
+          name
+          id
+          password
+          available
+        }
       }
     }
+  }
   `;
 
   function fetchMyQuery() {
@@ -110,7 +121,9 @@ to your service.
     var password = userinfo[0]["password"];
 
     bcrypt.compare(clientPassword, password, function (err, result) {
-      result == true ? res.send("authorized") : res.send("password inncorrect");
+      result == true
+        ? res.send({ data: userinfo, signin: true })
+        : res.send("password inncorrect");
     });
   }
 

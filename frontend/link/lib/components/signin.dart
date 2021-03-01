@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:link/pages/signin.dart';
 import 'package:link/pages/signup.dart';
 
-Future<bool> signIn(SignInDB userInfo) async {
+Future signIn(SignInDB userInfo) async {
   print(userInfo);
   final response = await http.post(
     'http://localhost:3000/login',

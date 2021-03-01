@@ -49,7 +49,7 @@ class UserTile extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(25),
               child: Image.asset(
-                userPath,
+                userPath ?? 'image/asset/null.png',
               ),
             ),
             ClipRRect(
