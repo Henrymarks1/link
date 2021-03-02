@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:link/components/addfriends.dart';
 
 import 'customsearch.dart';
 import 'package:uuid/uuid.dart';
@@ -71,7 +72,12 @@ class UserTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 IconButton(
-                  onPressed: null,
+                  onPressed: () {
+                    showSearch(
+                      context: context,
+                      delegate: FriendSearch(),
+                    );
+                  },
                   icon: Icon(
                     Icons.group_add,
                     size: 35,

@@ -193,7 +193,7 @@ This is an example snippet - you should consider tailoring it
 to your service.
 */
 
-  const username = req.body.username;
+  const name = req.body.name;
 
   async function fetchGraphQL(operationsDoc, operationName, variables) {
     const result = await fetch("http://localhost:8080/v1/graphql", {
@@ -209,13 +209,15 @@ to your service.
   }
 
   const operationsDoc = `
-    query MyQuery {
-      user(where: {username: {_eq: "${username}"}}) {
-        id
-        name
-        available
-      }
+  query MyQuery {
+    user(where: {name: {_like: "%${name}%"}}) {
+      id
+      name
+      available
+      username
     }
+  }
+  
   `;
 
   function fetchMyQuery() {
