@@ -10,6 +10,7 @@ class SignInDB {
   SignInDB({this.username, this.password});
 }
 
+// ignore: must_be_immutable
 class SignIn extends StatelessWidget {
   SignInDB signin;
 
