@@ -66,7 +66,7 @@ class UserTile extends StatelessWidget {
         ),
         title: Text(name),
         subtitle: Text(online == true ? "Online" : "Offline"),
-        trailing: Container(
+        trailing: user == true ? Container(
             width: MediaQuery.of(context).size.width * .3,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -96,6 +96,6 @@ class UserTile extends StatelessWidget {
                   ),
                 ),
               ],
-            )));
+            )) : null);
   }
 }

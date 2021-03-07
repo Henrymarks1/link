@@ -89,8 +89,7 @@ class MapPageState extends State<MapPage> {
                       shrinkWrap: true,
                       itemCount: widget.data['data'][0]['friends'].length,
                       itemBuilder: (context, index) {
-                        print(widget.data['data'][0]['friends'][index]['friend']
-                            ['name']);
+              
                         return UserTile(
                           name: widget.data['data'][0]['friends'][index]
                               ['friend']['name'],
