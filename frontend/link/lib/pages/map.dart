@@ -22,43 +22,21 @@ class MapPageState extends State<MapPage> {
 
   Completer<GoogleMapController> _controller = Completer();
 
-  List<Map> friends = [
-    {
-      "available": false,
-      "name": "Jason Telenoff",
-      "image_path": "assets/images/jason.png"
-    },
-    {
-      "available": true,
-      "name": "Ethan Hopkins",
-      "image_path": "assets/images/ethan.jpg"
-    },
-    {
-      "available": true,
-      "name": "Ben Swerdlow",
-      "image_path": "assets/images/swerd.jpg"
-    },
-    {
-      "available": false,
-      "name": "Jacob Zwang",
-      "image_path": "assets/images/jacob.jpg"
-    }
-  ];
-  void _setMarkers(LatLng point) {
-    final String markerIdVal = 'marker_id_$_markerIdCounter';
-    _markerIdCounter++;
+  // void _setMarkers(LatLng point) {
+  //   final String markerIdVal = 'marker_id_$_markerIdCounter';
+    
 
-    _markers.add(
-      Marker(
-        markerId: MarkerId(markerIdVal),
-        position: point,
-      ),
-    );
-  }
+  //   _markers.add(
+  //     Marker(
+  //       markerId: MarkerId("marker_id_2"),
+  //       position: point,
+  //       //icon: sourceIcon
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
-    print(widget.data);
     return new Scaffold(
       body: Stack(
         children: <Widget>[
@@ -78,14 +56,17 @@ class MapPageState extends State<MapPage> {
                       .split(',');
                   double lat = double.parse(data[1]);
                   double long = double.parse(data[3]);
-                  _setMarkers(LatLng(lat, long));
+                  //_setMarkers(LatLng(lat, long));
                   return GoogleMap(
+                    myLocationEnabled: true,
+         compassEnabled: true,
+
                     mapType: MapType.normal,
                     initialCameraPosition: CameraPosition(
                       target: LatLng(lat, long),
                       zoom: 13,
                     ),
-                    markers: _markers,
+                    //markers: _markers,
                     onMapCreated: (GoogleMapController controller) {
                       _controller.complete(controller);
                     },
