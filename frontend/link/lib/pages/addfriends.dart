@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'getfriends.dart';
+import 'package:link/models/getfriends.dart';
 
 class FriendSearch extends SearchDelegate {
   FriendSearch() {

@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:link/components/signin.dart';
+import 'package:link/models/signin.dart';
 import 'package:link/pages/map.dart';
 import 'package:link/pages/signup.dart';
 
@@ -35,10 +35,6 @@ class SignIn extends StatelessWidget {
               hintStyle: TextStyle(color: Colors.grey),
               filled: true,
               fillColor: Colors.white70,
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                borderSide: BorderSide(color: Colors.green, width: 2),
-              ),
             ),
           ),
           TextField(
@@ -49,9 +45,6 @@ class SignIn extends StatelessWidget {
               hintStyle: TextStyle(color: Colors.grey),
               filled: true,
               fillColor: Colors.white70,
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              ),
             ),
           ),
           Padding(

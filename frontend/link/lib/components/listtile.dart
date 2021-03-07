@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:link/components/addfriends.dart';
+import 'package:link/pages/addfriends.dart';
+import 'package:link/pages/addhangout.dart';
 
-import 'customsearch.dart';
 import 'package:uuid/uuid.dart';
 
 // ignore: must_be_immutable

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:link/components/place_service.dart';
+import 'package:link/models/place_service.dart';
 import 'package:link/pages/hangout.dart';
 
 class AddressSearch extends SearchDelegate<Suggestion> {

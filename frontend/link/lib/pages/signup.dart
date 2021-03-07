@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:link/components/postuser.dart';
 import 'package:link/components/themetextfeild.dart';
+import 'package:link/models/postuser.dart';
 
 class UserInfo {
   String name, username, password;
